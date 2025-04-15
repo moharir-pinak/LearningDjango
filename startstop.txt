@@ -1,0 +1,22 @@
+commands to use 
+
+
+to activate environment 
+venv\Scripts\activate
+
+to deactivate environment
+deactivate
+
+to run server
+python manage.py runserver
+
+to run tailwind 
+python manage.py tailwind start
+
+
+to change the admin password of we require the username and then use the below commands
+python manage.py changepassword <username>
+
+current username = pinak
+current password = learning@123
+

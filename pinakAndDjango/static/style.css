@@ -1,0 +1,8 @@
+body{
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgb(139, 0, 143) 0%, rgba(71,0,159,1) 90% );
+}
+
+h1{
+    text-align: center;
+    color:white;
+}
