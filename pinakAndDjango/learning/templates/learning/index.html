@@ -5,6 +5,26 @@ learnings Page
 {% endblock %}
 
 {% block content %}
-<h1>Djamgo learnings</h1>
+<h1 class="text-white font-bold text-6xl m-10 ">Django learnings</h1>
+
+<div class="grid grid-cols-3 gap-6 m-4">
+{% for learning in learnings  %}
+<div class="bg-purple-950 shadow-xl p-4 rounded-lg m-10"> 
+    <img class="rounded" src="{{learning.image.url}}" alt="">
+    <h3 classurl"text-white font-bold text-3xl ">{{learning.name}}</h3>
+    <a href="{% url 'learning:learning_detail' learning.id %}">
+        <button
+        type = "button"
+        class="bg-purple-500 hover:bg-purple-800 rounded text-white font-bold p-4 mx-30"
+        
+        >
+            {{learning.type}} - {{learning.id}}
+        </button>
+    </a>
+
+</div>
+
+{% endfor %}
+</div>
 
 {% endblock %}

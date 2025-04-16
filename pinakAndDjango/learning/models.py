@@ -18,6 +18,7 @@ class CharVarity(models.Model):
     image = models.ImageField(upload_to='learningimages/')
     date = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=5, choices=LEARNING_TYPES_CHOICES)
+    description = models.TextField(default='')
     
     def __str__(self):
         return self.name

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+learning Details Page 
+{% endblock %}
+
+{% block content %}
+<h1 class="text-white font-bold text-6xl m-10 ">Learnings Details</h1>
+<div class="grid grid-cols-2 gap-8 m-10 bg-purple-950 shadow-xl p-10 rounded-lg">
+    <div class="flex justify-center items-center">
+        <img class="rounded-lg max-h-96 w-full object-cover" src="{{ learning.image.url }}" alt="{{ learning.name }}">
+    </div>
+    <div class="flex flex-col space-y-6">
+        <h3 class="text-white font-bold text-4xl">{{ learning.name }}</h3>
+        <p class="text-white text-xl">{{ learning.description }}</p>
+    </div>
+</div>
+
+{% endblock %}
