@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Your Cart | EduTech Learning
+{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-white font-bold text-4xl mb-2">Shopping Cart</h1>
+    <p class="text-purple-300">Review and checkout your selected courses</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Cart Items (Left Column) -->
+    <div class="lg:col-span-2">
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden dark-card">
+            <div class="p-6 border-b border-purple-800 flex justify-between items-center">
+                <h2 class="text-white font-bold text-xl">Your Selected Courses</h2>
+                <span id="cartCountDisplay" class="text-purple-300">0 Courses</span>
+            </div>
+            
+            <!-- Cart items will be dynamically loaded here -->
+            <div id="cartItemsContainer">
+                <!-- Loading indicator -->
+                <div class="p-6 text-center">
+                    <div class="inline-block animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+                    <p class="text-purple-300 mt-2">Loading your cart...</p>
+                </div>
+            </div>
+            
+            <!-- Continue Shopping -->
+            <div class="p-6">
+                <a href="{% url 'learning:learnings_home' %}" class="text-purple-300 hover:text-white inline-flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Summary (Right Column) -->
+    <div class="lg:col-span-1">
+        <div id="orderSummary" class="bg-purple-950 rounded-lg shadow-lg overflow-hidden sticky top-4 dark-card">
+            <div class="p-6 border-b border-purple-800">
+                <h2 class="text-white font-bold text-xl mb-6">Order Summary</h2>
+                
+                <div class="space-y-4 mb-6">
+                    <div class="flex justify-between text-purple-300">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal">₹0.00</span>
+                    </div>
+                    <div class="flex justify-between text-purple-300">
+                        <span>Discount</span>
+                        <span id="cartDiscount">-₹0.00</span>
+                    </div>
+                    <div class="flex justify-between text-purple-300">
+                        <span>Tax (18% GST)</span>
+                        <span id="cartTax">₹0.00</span>
+                    </div>
+                </div>
+                
+                <div class="pt-4 border-t border-purple-800">
+                    <div class="flex justify-between text-white font-bold text-lg mb-6">
+                        <span>Total</span>
+                        <span id="cartTotal">₹0.00</span>
+                    </div>
+                    
+                    <button id="checkoutButton" class="w-full bg-purple-600 text-white py-3 rounded-md font-bold hover:bg-purple-700 transition mb-4">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Coupon Code -->
+            <div class="p-6 border-b border-purple-800">
+                <h3 class="text-white font-bold text-lg mb-4">Apply Coupon</h3>
+                <form class="flex space-x-2" id="couponForm">
+                    <input type="text" placeholder="Enter coupon code" class="w-full bg-purple-900 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        Apply
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Payment Methods -->
+            <div class="p-6">
+                <h3 class="text-white font-bold text-lg mb-4">Payment Methods</h3>
+                <div class="flex flex-wrap gap-2">
+                    <div class="bg-purple-900 p-2 rounded-md payment-method">
+                        <i class="fab fa-cc-visa text-2xl text-white"></i>
+                    </div>
+                    <div class="bg-purple-900 p-2 rounded-md payment-method">
+                        <i class="fab fa-cc-mastercard text-2xl text-white"></i>
+                    </div>
+                    <div class="bg-purple-900 p-2 rounded-md payment-method">
+                        <i class="fab fa-cc-paypal text-2xl text-white"></i>
+                    </div>
+                    <div class="bg-purple-900 p-2 rounded-md payment-method">
+                        <i class="fab fa-cc-apple-pay text-2xl text-white"></i>
+                    </div>
+                    <div class="bg-purple-900 p-2 rounded-md payment-method">
+                        <i class="fas fa-wallet text-2xl text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize cart on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add some dummy courses if cart doesn't exist yet
+        if (!localStorage.getItem('eduTechCart')) {
+            const dummyCourses = [
+                {
+                    id: "demo1",
+                    name: "Python for Beginners",
+                    price: 1499.00,
+                    image: "https://img.freepik.com/free-vector/gradient-python-logo_23-2150213200.jpg",
+                    type: "py"
+                },
+                {
+                    id: "demo2",
+                    name: "Web Development Bootcamp",
+                    price: 2999.00,
+                    image: "https://img.freepik.com/free-vector/gradient-web-development-background_23-2150207967.jpg",
+                    type: "html"
+                },
+                {
+                    id: "demo3",
+                    name: "JavaScript Mastery",
+                    price: 1299.00,
+                    image: "https://img.freepik.com/free-vector/javascript-abstract-concept-illustration_335657-3702.jpg",
+                    type: "js"
+                }
+            ];
+            
+            // Set a flag so we don't add these courses every time
+            localStorage.setItem('dummyCoursesAdded', 'true');
+            
+            // Create a random selection of 1-2 courses to add to cart
+            if (Math.random() > 0.5) {
+                const selectedCourses = [dummyCourses[0]];
+                if (Math.random() > 0.5) {
+                    selectedCourses.push(dummyCourses[2]);
+                }
+                localStorage.setItem('eduTechCart', JSON.stringify(selectedCourses));
+            }
+        }
+        
+        // Initialize and update cart display
+        if (window.eduTechCart) {
+            setTimeout(() => {
+                window.eduTechCart.updateCartDisplay();
+            }, 500); // Small delay to ensure cart is loaded properly
+        } else {
+            // If cart object isn't available yet, show error message
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            if (cartItemsContainer) {
+                cartItemsContainer.innerHTML = `
+                    <div class="p-6 text-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 text-5xl mb-4"></i>
+                        <h3 class="text-white font-bold text-xl mb-2">Error loading cart</h3>
+                        <p class="text-purple-300 mb-4">Please refresh the page to try again.</p>
+                        <button onclick="location.reload()" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700">
+                            Refresh Page
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Handle checkout button
+        const checkoutButton = document.getElementById('checkoutButton');
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', function() {
+                if (window.eduTechCart && window.eduTechCart.items.length > 0) {
+                    window.eduTechCart.showNotification('Checkout functionality will be implemented soon!', 'info');
+                } else {
+                    window.eduTechCart.showNotification('Your cart is empty!', 'warning');
+                }
+            });
+        }
+
+        // Handle coupon form
+        const couponForm = document.getElementById('couponForm');
+        if (couponForm) {
+            couponForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = this.querySelector('input');
+                const couponCode = input.value.trim();
+                
+                if (couponCode) {
+                    window.eduTechCart.showNotification('Coupon applied successfully!', 'success');
+                    input.value = '';
+                } else {
+                    window.eduTechCart.showNotification('Please enter a coupon code', 'warning');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+

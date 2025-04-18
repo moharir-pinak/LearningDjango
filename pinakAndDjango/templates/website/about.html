@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+
+{% block title %}About Us | EduTech Learning{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-purple-950 rounded-lg shadow-xl overflow-hidden mb-12">
+    <div class="relative">
+        <img class="w-full h-64 object-cover opacity-40" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="About EduTech Learning">
+        <div class="absolute inset-0 bg-gradient-to-t from-purple-950 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-4">
+                <h1 class="text-white font-bold text-4xl md:text-5xl mb-4">About EduTech Learning</h1>
+                <p class="text-purple-300 text-lg md:text-xl max-w-3xl mx-auto">
+                    Empowering learners worldwide with high-quality tech education
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+    <!-- Main Content (Left and Middle) -->
+    <div class="lg:col-span-2">
+        <!-- Our Story -->
+        <div class="bg-purple-950 rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-white font-bold text-2xl mb-6">Our Story</h2>
+            <div class="text-purple-300 space-y-4">
+                <p>
+                    Founded in 2020, EduTech Learning was born from a simple yet powerful idea: to make high-quality technical education accessible to everyone, regardless of their location or background.
+                </p>
+                <p>
+                    What started as a small collection of programming tutorials has grown into a comprehensive learning platform with thousands of students from over 50 countries. Our journey has been driven by the belief that education is the greatest equalizer and that technology skills are the currency of the future.
+                </p>
+                <p>
+                    Today, we offer a diverse catalog of courses covering everything from programming fundamentals to advanced machine learning concepts, taught by industry professionals who are passionate about sharing their knowledge and experience.
+                </p>
+            </div>
+        </div>
+
+        <!-- Our Mission & Values -->
+        <div class="bg-purple-950 rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-white font-bold text-2xl mb-6">Our Mission & Values</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-white font-bold text-xl mb-4">Mission</h3>
+                <p class="text-purple-300">
+                    To democratize technical education by providing affordable, accessible, and high-quality learning resources that empower individuals to transform their lives through knowledge and skills.
+                </p>
+            </div>
+            
+            <h3 class="text-white font-bold text-xl mb-4">Core Values</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-purple-900 p-6 rounded-lg">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-700 p-2 rounded-lg mr-3">
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                        <h4 class="text-white font-bold">Excellence</h4>
+                    </div>
+                    <p class="text-purple-300">We strive for excellence in every course, every lesson, and every interaction with our students.</p>
+                </div>
+                
+                <div class="bg-purple-900 p-6 rounded-lg">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-700 p-2 rounded-lg mr-3">
+                            <i class="fas fa-users text-blue-400"></i>
+                        </div>
+                        <h4 class="text-white font-bold">Community</h4>
+                    </div>
+                    <p class="text-purple-300">We believe in the power of community and foster an environment of collaboration and mutual support.</p>
+                </div>
+                
+                <div class="bg-purple-900 p-6 rounded-lg">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-700 p-2 rounded-lg mr-3">
+                            <i class="fas fa-lightbulb text-yellow-300"></i>
+                        </div>
+                        <h4 class="text-white font-bold">Innovation</h4>
+                    </div>
+                    <p class="text-purple-300">We embrace change and continuously innovate our teaching methods and platform features.</p>
+                </div>
+                
+                <div class="bg-purple-900 p-6 rounded-lg">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-700 p-2 rounded-lg mr-3">
+                            <i class="fas fa-unlock-alt text-green-400"></i>
+                        </div>
+                        <h4 class="text-white font-bold">Accessibility</h4>
+                    </div>
+                    <p class="text-purple-300">We are committed to making education accessible to all, regardless of geographical or financial constraints.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar (Right Column) -->
+    <div class="lg:col-span-1">
+        <!-- Stats Card -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden mb-8">
+            <div class="p-6 border-b border-purple-800">
+                <h2 class="text-white font-bold text-xl mb-6">EduTech by Numbers</h2>
+                
+                <div class="space-y-6">
+                    <div class="text-center">
+                        <div class="text-white font-bold text-4xl mb-2">50+</div>
+                        <div class="text-purple-300">Courses</div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-white font-bold text-4xl mb-2">10,000+</div>
+                        <div class="text-purple-300">Students</div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-white font-bold text-4xl mb-2">4.8/5</div>
+                        <div class="text-purple-300">Average Rating</div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-white font-bold text-4xl mb-2">25+</div>
+                        <div class="text-purple-300">Expert Instructors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonial Card -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6 border-b border-purple-800">
+                <h2 class="text-white font-bold text-xl mb-6">Student Success Story</h2>
+                
+                <div class="italic text-purple-300 mb-6">
+                    "EduTech Learning completely transformed my career. After completing three courses, I landed my dream job as a full-stack developer. The instructors were incredibly supportive, and the community helped me through every challenge."
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="bg-purple-800 text-white rounded-full h-12 w-12 flex items-center justify-center mr-4">
+                        RS
+                    </div>
+                    <div>
+                        <div class="text-white font-bold">Ravi Sharma</div>
+                        <div class="text-purple-400 text-sm">Software Engineer, Bangalore</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Section -->
+<div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-8 text-center">Meet Our Leadership Team</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Team Member 1 -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden">
+            <img class="w-full h-64 object-cover" src="https://randomuser.me/api/portraits/men/32.jpg" alt="CEO">
+            <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-1">Rajesh Patel</h3>
+                <div class="text-purple-400 mb-4">Founder & CEO</div>
+                <p class="text-purple-300 text-sm mb-4">Former Software Engineer at Google with 15+ years of experience in building educational platforms.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Member 2 -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden">
+            <img class="w-full h-64 object-cover" src="https://randomuser.me/api/portraits/women/44.jpg" alt="CTO">
+            <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-1">Anika Singh</h3>
+                <div class="text-purple-400 mb-4">Chief Technology Officer</div>
+                <p class="text-purple-300 text-sm mb-4">Tech leader with expertise in e-learning platforms and AI-based personalized learning.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Member 3 -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden">
+            <img class="w-full h-64 object-cover" src="https://randomuser.me/api/portraits/women/65.jpg" alt="COO">
+            <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-1">Priya Sharma</h3>
+                <div class="text-purple-400 mb-4">Chief Operating Officer</div>
+                <p class="text-purple-300 text-sm mb-4">Operations expert with a passion for creating seamless learning experiences for students.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Member 4 -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden">
+            <img class="w-full h-64 object-cover" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Lead Instructor">
+            <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-1">Vikram Desai</h3>
+                <div class="text-purple-400 mb-4">Lead Instructor</div>
+                <p class="text-purple-300 text-sm mb-4">Award-winning educator with a passion for making complex concepts easy to understand.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-purple-300 hover:text-white"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="bg-purple-950 rounded-lg shadow-xl p-8 text-center">
+    <h2 class="text-white font-bold text-3xl mb-4">Ready to Start Your Learning Journey?</h2>
+    <p class="text-purple-300 text-lg mb-6 max-w-3xl mx-auto">
+        Join thousands of students who are already transforming their careers with EduTech Learning.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="{% url 'learning:learnings_home' %}" class="bg-purple-600 text-white px-8 py-3 rounded-md font-bold hover:bg-purple-700 transition">
+            Explore Courses
+        </a>
+        <a href="#" class="bg-transparent border border-purple-600 text-purple-300 px-8 py-3 rounded-md font-bold hover:bg-purple-900 hover:text-white transition">
+            Contact Us
+        </a>
+    </div>
+</div>
+{% endblock %} 

@@ -1,19 +1,297 @@
 {% extends "layout.html" %}
 
 {% block title %}
-learning Details Page 
+{{ learning.name }} | EduTech Learning
 {% endblock %}
 
 {% block content %}
-<h1 class="text-white font-bold text-6xl m-10 ">Learnings Details</h1>
-<div class="grid grid-cols-2 gap-8 m-10 bg-purple-950 shadow-xl p-10 rounded-lg">
-    <div class="flex justify-center items-center">
-        <img class="rounded-lg max-h-96 w-full object-cover" src="{{ learning.image.url }}" alt="{{ learning.name }}">
-    </div>
-    <div class="flex flex-col space-y-6">
-        <h3 class="text-white font-bold text-4xl">{{ learning.name }}</h3>
-        <p class="text-white text-xl">{{ learning.description }}</p>
+<!-- Course Header -->
+<div class="bg-purple-950 rounded-lg shadow-xl overflow-hidden mb-8 dark-card">
+    <div class="relative">
+        <img class="w-full h-64 object-cover" src="{{ learning.image.url }}" alt="{{ learning.name }}">
+        <div class="absolute inset-0 bg-gradient-to-t from-purple-950 to-transparent dark-gradient"></div>
+        <div class="absolute bottom-0 left-0 p-6">
+            <div class="mb-2">
+                {% if learning.type == 'py' %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm category-badge">
+                        <i class="fab fa-python mr-2"></i> Python
+                    </span>
+                {% elif learning.type == 'java' %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm">
+                        <i class="fab fa-java mr-2"></i> Java
+                    </span>
+                {% elif learning.type == 'js' %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm">
+                        <i class="fab fa-js mr-2"></i> JavaScript
+                    </span>
+                {% elif learning.type == 'html' %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm">
+                        <i class="fab fa-html5 mr-2"></i> HTML
+                    </span>
+                {% elif learning.type == 'css' %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm">
+                        <i class="fab fa-css3-alt mr-2"></i> CSS
+                    </span>
+                {% else %}
+                    <span class="inline-flex items-center bg-purple-800 text-white px-3 py-1 rounded-full text-sm">
+                        {{ learning.get_type_display }}
+                    </span>
+                {% endif %}
+            </div>
+            <h1 class="text-white font-bold text-3xl md:text-4xl">{{ learning.name }}</h1>
+            <div class="flex items-center mt-2 text-purple-300">
+                <span class="inline-flex items-center mr-4">
+                    <i class="far fa-calendar-alt mr-1"></i> {{ learning.date|date:"F d, Y" }}
+                </span>
+                <span class="inline-flex items-center">
+                    <i class="far fa-user mr-1"></i> By Admin
+                </span>
+            </div>
+        </div>
     </div>
 </div>
 
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Course Content (Left Column) -->
+    <div class="lg:col-span-2">
+        <!-- About the Course -->
+        <div class="bg-purple-950 rounded-lg shadow-lg p-6 mb-8 dark-card">
+            <h2 class="text-white font-bold text-2xl mb-4">About this Course</h2>
+            <div class="text-purple-300 space-y-4">
+                <p>{{ learning.description }}</p>
+                {% if not learning.description %}
+                <p>Learn the fundamentals and advanced concepts of {{ learning.name }}. This comprehensive course covers everything you need to know to become proficient in this technology.</p>
+                <p>Whether you're a beginner looking to get started or an experienced developer wanting to deepen your knowledge, this course has something valuable for everyone.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- What You'll Learn -->
+        <div class="bg-purple-950 rounded-lg shadow-lg p-6 mb-8 dark-card">
+            <h2 class="text-white font-bold text-2xl mb-4">What You'll Learn</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Understand core concepts and principles</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Build real-world projects from scratch</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Master advanced techniques and patterns</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Optimize performance and best practices</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Troubleshoot common problems</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                    <p class="text-purple-300">Deploy and scale your applications</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Reviews -->
+        <div class="bg-purple-950 rounded-lg shadow-lg p-6 dark-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-white font-bold text-2xl">Student Reviews</h2>
+                <div class="flex items-center text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="ml-2 text-white">4.5</span>
+                </div>
+            </div>
+            
+            {% if learning.reviews.all %}
+                {% for review in learning.reviews.all %}
+                <div class="border-t border-purple-800 py-4 mt-4">
+                    <div class="flex justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="bg-purple-800 text-white rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                                {{ review.user.username|first|upper }}
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">{{ review.user.username }}</div>
+                                <div class="text-purple-400 text-sm">{{ review.date|date:"M d, Y" }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-yellow-400">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="text-purple-300">{{ review.review }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Sample Review 1 -->
+                <div class="border-t border-purple-800 py-4 mt-4">
+                    <div class="flex justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="bg-purple-800 text-white rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                                A
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Amit Kumar</div>
+                                <div class="text-purple-400 text-sm">Jun 12, 2023</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-300">This course exceeded my expectations! The content is well-structured and the instructor explains complex concepts in a simple way. Highly recommended!</p>
+                </div>
+                
+                <!-- Sample Review 2 -->
+                <div class="border-t border-purple-800 py-4">
+                    <div class="flex justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="bg-purple-800 text-white rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                                P
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Priya Singh</div>
+                                <div class="text-purple-400 text-sm">May 28, 2023</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-300">Great course with practical examples and projects. I learned a lot and was able to apply the knowledge immediately in my work. The only thing that could be improved is adding more exercises.</p>
+                </div>
+            {% endif %}
+            
+            <!-- Write a Review -->
+            <div class="mt-6 pt-6 border-t border-purple-800">
+                <h3 class="text-white font-bold text-xl mb-4">Write a Review</h3>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-purple-300 mb-2" for="rating">Your Rating</label>
+                        <div class="flex text-gray-400">
+                            <i class="cursor-pointer far fa-star hover:text-yellow-400 text-xl mr-1"></i>
+                            <i class="cursor-pointer far fa-star hover:text-yellow-400 text-xl mr-1"></i>
+                            <i class="cursor-pointer far fa-star hover:text-yellow-400 text-xl mr-1"></i>
+                            <i class="cursor-pointer far fa-star hover:text-yellow-400 text-xl mr-1"></i>
+                            <i class="cursor-pointer far fa-star hover:text-yellow-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-purple-300 mb-2" for="review">Your Review</label>
+                        <textarea id="review" rows="4" class="w-full bg-purple-900 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                    </div>
+                    <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Sidebar (Right Column) -->
+    <div class="lg:col-span-1">
+        <!-- Course Info Card -->
+        <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden sticky top-4 dark-card">
+            <!-- Price Section -->
+            <div class="p-6 border-b border-purple-800">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-white font-bold text-3xl">₹{{ learning.price }}</div>
+                    {% if learning.price > 0 %}
+                        <div class="text-purple-400 line-through">₹{{ learning.price|add:"999" }}</div>
+                    {% endif %}
+                </div>
+                <div class="flex items-center mb-4">
+                    <div class="text-purple-300 flex items-center">
+                        <i class="far fa-clock mr-1"></i> Limited time offer
+                    </div>
+                </div>
+                <button class="w-full bg-purple-600 text-white py-3 rounded-md font-bold hover:bg-purple-700 transition mb-3">
+                    Enroll Now
+                </button>
+                <button 
+                    class="w-full bg-transparent border border-purple-600 text-purple-300 py-3 rounded-md font-bold hover:bg-purple-900 transition add-to-cart"
+                    data-id="{{ learning.id }}"
+                    data-name="{{ learning.name }}"
+                    data-price="{{ learning.price }}"
+                    data-image="{{ learning.image.url }}"
+                    data-type="{{ learning.type }}"
+                    data-rating="{{ learning.rating }}"
+                    data-reviews="{{ learning.students_enrolled }}"
+                    data-instructor="{{ learning.instructor }}"
+                >
+                    Add to Cart
+                </button>
+            </div>
+            
+            <!-- Course Includes -->
+            <div class="p-6 border-b border-purple-800">
+                <h3 class="text-white font-bold text-lg mb-4">This Course Includes</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-purple-300">
+                        <i class="fas fa-video mr-3 text-purple-500"></i>
+                        <span>12 hours on-demand video</span>
+                    </li>
+                    <li class="flex items-center text-purple-300">
+                        <i class="fas fa-file-alt mr-3 text-purple-500"></i>
+                        <span>25 downloadable resources</span>
+                    </li>
+                    <li class="flex items-center text-purple-300">
+                        <i class="fas fa-infinity mr-3 text-purple-500"></i>
+                        <span>Full lifetime access</span>
+                    </li>
+                    <li class="flex items-center text-purple-300">
+                        <i class="fas fa-mobile-alt mr-3 text-purple-500"></i>
+                        <span>Access on mobile and TV</span>
+                    </li>
+                    <li class="flex items-center text-purple-300">
+                        <i class="fas fa-certificate mr-3 text-purple-500"></i>
+                        <span>Certificate of completion</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Share Course -->
+            <div class="p-6">
+                <h3 class="text-white font-bold text-lg mb-4">Share This Course</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-purple-300 hover:text-white">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

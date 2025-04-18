@@ -1,0 +1,1 @@
+web: gunicorn pinakAndDjango.wsgi:application --log-file - 

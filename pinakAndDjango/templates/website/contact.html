@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+{% block title %}Contact Us | EduTech Learning{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8 text-center">
+        <h1 class="text-white font-bold text-4xl mb-4">Contact Us</h1>
+        <p class="text-purple-300 text-lg">Have questions or feedback? We'd love to hear from you!</p>
+    </div>
+    
+    <!-- Contact Form -->
+    <div class="bg-purple-950 rounded-lg shadow-lg overflow-hidden dark-card">
+        <div class="p-8">
+            <form id="contactForm" class="space-y-6" method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="bg-green-600 text-white p-4 rounded-md mb-6">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-white font-medium mb-2">Full Name</label>
+                    <input type="text" id="name" name="name" required 
+                        class="w-full bg-purple-900 text-white rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Enter your full name">
+                </div>
+                
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-white font-medium mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required 
+                        class="w-full bg-purple-900 text-white rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Enter your email address">
+                </div>
+                
+                <!-- Phone Field -->
+                <div>
+                    <label for="phone" class="block text-white font-medium mb-2">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" 
+                        class="w-full bg-purple-900 text-white rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Enter your phone number (optional)">
+                </div>
+                
+                <!-- Message Field -->
+                <div>
+                    <label for="message" class="block text-white font-medium mb-2">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required
+                        class="w-full bg-purple-900 text-white rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="What would you like to tell us?"></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                        class="w-full bg-purple-600 text-white py-3 rounded-md font-bold hover:bg-purple-700 transition">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Contact Information -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Email -->
+        <div class="bg-purple-950 rounded-lg p-6 text-center dark-card">
+            <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-purple-800 text-white mb-4">
+                <i class="fas fa-envelope text-xl"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">Email Us</h3>
+            <p class="text-purple-300">info@edutech.com</p>
+            <p class="text-purple-300">support@edutech.com</p>
+        </div>
+        
+        <!-- Call -->
+        <div class="bg-purple-950 rounded-lg p-6 text-center dark-card">
+            <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-purple-800 text-white mb-4">
+                <i class="fas fa-phone text-xl"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">Call Us</h3>
+            <p class="text-purple-300">+91 9876543210</p>
+            <p class="text-purple-300">Mon-Fri, 9AM to 6PM</p>
+        </div>
+        
+        <!-- Visit -->
+        <div class="bg-purple-950 rounded-lg p-6 text-center dark-card">
+            <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-purple-800 text-white mb-4">
+                <i class="fas fa-map-marker-alt text-xl"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">Visit Us</h3>
+            <p class="text-purple-300">123 Tech Park, Hinjewadi</p>
+            <p class="text-purple-300">Pune, Maharashtra, India</p>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="bg-purple-950 rounded-lg shadow-lg p-8 max-w-md w-full relative dark-card">
+        <button id="closeModal" class="absolute top-3 right-3 text-purple-300 hover:text-white">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-green-500 text-white mb-6 mx-auto">
+                <i class="fas fa-check text-2xl"></i>
+            </div>
+            <h3 class="text-white font-bold text-2xl mb-2">Thank You!</h3>
+            <p class="text-purple-300 mb-6">We've received your message and will connect with you soon.</p>
+            <button id="closeModalBtn" class="bg-purple-600 text-white py-2 px-6 rounded-md font-medium hover:bg-purple-700 transition">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModalX = document.getElementById('closeModal');
+        
+        // Check if there are Django messages but no server-side form
+        {% if messages and not request.method == 'POST' %}
+            // Show success modal for Django messages
+            successModal.classList.remove('hidden');
+        {% endif %}
+        
+        // Form submission - client-side handling
+        contactForm.addEventListener('submit', function(e) {
+            // For non-JavaScript form submission, we'll let the form submit normally to the server
+            // If JavaScript is enabled, we'll show the modal and then submit the form
+            
+            // If it's a regular form with POST method, let it submit normally
+            if (this.method.toLowerCase() === 'post') {
+                // Don't prevent default - let the form submit to the server
+                return;
+            }
+            
+            // For client-side only version
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real application, you would send this data to your server
+            console.log({name, email, phone, message});
+            
+            // Show success modal
+            successModal.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+        });
+        
+        // Close modal when clicking the close button
+        closeModalBtn.addEventListener('click', function() {
+            successModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking the X
+        closeModalX.addEventListener('click', function() {
+            successModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                successModal.classList.add('hidden');
+            }
+        });
+    });
+</script>
+{% endblock %} 
